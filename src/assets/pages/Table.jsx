@@ -124,25 +124,40 @@ function Table() {
         return visibleText + (paragraphs.length > 3 ? "..." : "")
     }
 
-    const currentTableData = table.slice(
-        (currentPage-1) * itemsPerPage,
-        currentPage * itemsPerPage
-    )
-
-    const totalPages = Math.ceil(table.length / itemsPerPage)
-
-    const pageNumbers = [];
-        for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage +2); i++) {
-            pageNumbers.push(i)
-        }
-    
-    const changePage = (page) => {
+    const handlePageChange = (page) => {
         setCurrentPage(page)
     }
+      
+    const indexOfLastItem = currentPage * itemsPerPage
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    const currentItems = table.slice(indexOfFirstItem, indexOfLastItem)
+
+    const totalPages = Math.ceil(table.length / itemsPerPage)
+    const visiblePages = Math.min(5, totalPages)
+    const halfVisible = Math.floor(visiblePages / 2)
+    const startPage = Math.max(1, currentPage - halfVisible)
+    const endPage = Math.min(totalPages, startPage + visiblePages - 1)
+
+    // const currentTableData = table.slice(
+    //     (currentPage-1) * itemsPerPage,
+    //     currentPage * itemsPerPage
+    // )
+
+    // const totalPages = Math.ceil(table.length / itemsPerPage)
+
+    // const pageNumbers = [];
+    //     for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage +2); i++) {
+    //         pageNumbers.push(i)
+    //     }
+    
+    // const changePage = (page) => {
+    //     setCurrentPage(page)
+    // }
     
 
   return (
     <div>
+        <h1>NIMEKIRI</h1>
         <table>
             <thead>
                 <tr>
@@ -154,7 +169,7 @@ function Table() {
                 </tr>
             </thead>
             <tbody>
-                {currentTableData.map(one=> (
+                {currentItems.map(one=> (
                 <Fragment key={one.id}>
                 <tr key={one.id} onClick={() => toggleRow(one.id)}>
                     <td>{one.firstname}</td>
@@ -176,13 +191,22 @@ function Table() {
                 ))}
             </tbody>
         </table>
-        <div>
+        <div className="pagination">
+            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>{"<"}</button>
+            {Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage).map((page) => (
+            <button key={page} onClick={() => handlePageChange(page)} className={currentPage === page ? "active" : ""}>
+            {page}
+             </button>
+            ))}
+            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>{">"}</button>
+            </div>
+        {/* <div>
             {pageNumbers.map((page)=> (
                 <button key={page} onClick={() => changePage(page)}>
                     {page}
                 </button>
             ))}
-        </div>
+        </div> */}
     </div>
   )
 }

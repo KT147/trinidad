@@ -1,9 +1,9 @@
 import './App.css'
 import {Route, Routes} from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import HomePage from './assets/pages/HomePage'
 import Table from './assets/pages/Table'
 import Article from './assets/pages/Article'
+import NavBar from './assets/pages/NavBar'
 
 function App() {
 
@@ -11,10 +11,8 @@ function App() {
   return (
     <div>
 
-      <Link to="/"><button>Home</button></Link>
-      <Link to="/table"><button>TABEL</button></Link>
-      <Link to="/article"><button>ARTIKKEL</button></Link>
-      
+      <NavBar/>
+
       <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/table" element={<Table/>}/>

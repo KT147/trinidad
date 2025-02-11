@@ -1,42 +1,65 @@
 #root {
-  max-width: 1280px;
+  /* min-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: rgba(59,62,87,255);
+}
+.homepage{
+}
+.home-head{
+  font-size: 40px;
+  color:#13cc76;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.home-body{
+  color: white;
+  font-size: 30px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar{
+  background-color: white;
+  position: fixed;
+  top: 0;  
+  left: 0;
+  height: 100%;
+  min-width: 250px;
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.nav-logo{
+  position: fixed;
+  margin-top: 80px;
+  width: 200px;
+  margin-left: -105px;
 }
 
-.card {
-  padding: 2em;
+.nav-button{
+ background-color: transparent;
+ color: rgb(18, 3, 62);
+ font-size: 20px;
+ position: fixed;
+ margin-top: 200px;
+ margin-left: -80px;
+ text-align: right;
 }
 
-.read-the-docs {
-  color: #888;
+.article-img {
+  width: 25px;
+}
+
+.article-img:hover{
+  width: 30px;
+}
+
+.table-img{
+  width: 25px;
+}
+
+.table-img:hover{
+  width: 30px;
+}
+
+.nav-button:hover{
+  color:#3ca07e;
 }
