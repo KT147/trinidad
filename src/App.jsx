@@ -12,6 +12,9 @@ function App() {
     <div>
 
       <NavBar/>
+      
+      <img className='deco-left' src="/bg-deco-left.svg"/>
+      <img className='deco-right' src="/bg-deco-right.svg"/>
 
       <Routes>
         <Route path="/" element={<HomePage/>}/>
