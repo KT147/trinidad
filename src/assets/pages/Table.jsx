@@ -120,7 +120,7 @@ function Table() {
 
     const truncateText = (text) => {
         const paragraphs = text.split("\n");
-        const visibleText = paragraphs.slice(0, 3).join("\n")
+        const visibleText = paragraphs.slice(0, 1).join("\n")
         return visibleText + (paragraphs.length > 3 ? "..." : "")
     }
 
@@ -137,6 +137,16 @@ function Table() {
     const halfVisible = Math.floor(visiblePages / 2)
     const startPage = Math.max(1, currentPage - halfVisible)
     const endPage = Math.min(totalPages, startPage + visiblePages - 1)
+
+    const formatBodyText = (text) => {
+        return text.replace(/<\/?p>/g, ''); // Eemaldab kõik <p> ja </p> sildid
+    }
+
+    const formatPhone = (phone) => {
+        if (!phone) return ''
+        return phone.replace(/(\d{3})(\d+)/, '$1 $2')
+      }
+      
 
     // const currentTableData = table.slice(
     //     (currentPage-1) * itemsPerPage,
@@ -169,25 +179,25 @@ function Table() {
                 </tr>
             </thead>
             <tbody>
-                {currentItems.map(one=> (
+            {currentItems.map(one => (
                 <Fragment key={one.id}>
                 <tr key={one.id} onClick={() => toggleRow(one.id)} className={openRowId === one.id ? "open-row" : ""}>
-                    <td>{one.firstname}</td>
-                    <td>{one.surname}</td>
-                    <td>{one.sex === "f" ? "Naine" : one.sex === "m" ? "Mees" : one.sex}</td>
-                    <td>{formatDate(getBirthDate(one.personal_code))}</td>
-                    <td>{one.phone}</td>
-                    {openRowId === one.id && (
-                        <tr className="details-row">
-                            <td colSpan="5" className="details-cell">
-                                <img className="details-cell-image" src={one.image.small} alt="" />
-                                {truncateText(one.body)}
-                            </td>
-                        </tr>
-                        )}
+                    <td className="top-info">{one.firstname}</td>
+                    <td className="top-info">{one.surname}</td>
+                    <td className="top-info">{one.sex === "f" ? "Naine" : one.sex === "m" ? "Mees" : one.sex}</td>
+                    <td className="top-info">{formatDate(getBirthDate(one.personal_code))}</td>
+                    <td className="top-info">{formatPhone(one.phone)}</td>
                 </tr>
+                {openRowId === one.id && (
+                    <tr className="details-row">
+                    <td colSpan="5" className="details-cell">
+                        <img className="details-cell-image" src={one.image.small} alt="" />
+                        <div className="opened-text">{truncateText(formatBodyText(one.body))}</div>
+                    </td>
+                    </tr>
+                )}
                 </Fragment>
-                ))}
+            ))}
             </tbody>
         </table>
         <div className="pagination">
