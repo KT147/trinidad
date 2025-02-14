@@ -158,47 +158,46 @@ function Table() {
   return (
     <div>
         <h1>NIMEKIRI</h1>
-        <table>
+        <table className="table">
             <thead>
                 <tr>
-                    <th><button onClick={() => sortData ("firstname")}>Eesnimi <img src={sortArrow("firstname")}/></button></th>
-                    <th><button onClick={() => sortData ("surname")}>Perekonnanimi <img src={sortArrow("surname")}/></button></th>
-                    <th><button onClick={() => sortData ("sex")}>Sugu <img src={sortArrow("sex")}/></button></th>
-                    <th><button onClick={() => sortData ("personal_code")}>Sünnikuupäev <img src={sortArrow("personal_code")}/></button></th>
+                    <th><button className="sort-button" onClick={() => sortData ("firstname")}>Eesnimi <img className="sort-image" src={sortArrow("firstname")}/></button></th>
+                    <th><button className="sort-button" onClick={() => sortData ("surname")}>Perekonnanimi <img className="sort-image" src={sortArrow("surname")}/></button></th>
+                    <th><button className="sort-button" onClick={() => sortData ("sex")}>Sugu <img className="sort-image" src={sortArrow("sex")}/></button></th>
+                    <th><button className="sort-button" onClick={() => sortData ("personal_code")}>Sünnikuupäev <img className="sort-image" src={sortArrow("personal_code")}/></button></th>
                     <th>Telefon</th>
                 </tr>
             </thead>
             <tbody>
                 {currentItems.map(one=> (
                 <Fragment key={one.id}>
-                <tr key={one.id} onClick={() => toggleRow(one.id)}>
+                <tr key={one.id} onClick={() => toggleRow(one.id)} className={openRowId === one.id ? "open-row" : ""}>
                     <td>{one.firstname}</td>
                     <td>{one.surname}</td>
                     <td>{one.sex === "f" ? "Naine" : one.sex === "m" ? "Mees" : one.sex}</td>
                     <td>{formatDate(getBirthDate(one.personal_code))}</td>
                     <td>{one.phone}</td>
-                </tr>
-                 {openRowId === one.id && (
-                    <tr key={`${one.id}-details`}>
-                        <td colSpan="5">
-                            <div>
+                    {openRowId === one.id && (
+                        <tr className="details-row">
+                            <td colSpan="5" className="details-cell">
+                                <img className="details-cell-image" src={one.image.small} alt="" />
                                 {truncateText(one.body)}
-                            </div>
-                        </td>
-                    </tr>
-                    )}
+                            </td>
+                        </tr>
+                        )}
+                </tr>
                 </Fragment>
                 ))}
             </tbody>
         </table>
         <div className="pagination">
-            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>{"<"}</button>
+            <button className="table-sort-button" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>{"<"}</button>
             {Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage).map((page) => (
-            <button key={page} onClick={() => handlePageChange(page)} className={currentPage === page ? "active" : ""}>
+            <button key={page} onClick={() => handlePageChange(page)} className={currentPage === page ? "active" : "non-active"}>
             {page}
              </button>
             ))}
-            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>{">"}</button>
+            <button className="table-sort-button" onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>{">"}</button>
             </div>
         {/* <div>
             {pageNumbers.map((page)=> (

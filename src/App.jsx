@@ -10,11 +10,13 @@ function App() {
 
   return (
     <div>
-
-      <NavBar/>
       
+      <div className='deco-pics'>
       <img className='deco-left' src="/bg-deco-left.svg"/>
       <img className='deco-right' src="/bg-deco-right.svg"/>
+      </div>
+
+      <NavBar/>
 
       <Routes>
         <Route path="/" element={<HomePage/>}/>
