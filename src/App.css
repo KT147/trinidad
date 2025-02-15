@@ -53,13 +53,44 @@ body {
   min-width: 20px;
   width: 250px;
   z-index: 10;
+  transition: transform 0.3s ease-in-out;
 }
 
-.nav-logo{
+.navbar-top {
+  background-color: white; 
+  width: 100%;
+  height: 60px;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 20; 
+  padding: 0 20px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.navbar.open {
+  transform: translateX(0);
+}
+
+.nav-logo-desktop{
   position: fixed;
   margin-top: 80px;
   width: 200px;
   margin-left: -105px;
+}
+
+.nav-logo-mobile {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);  
+  width: 120px;  
+  top: 30px;
 }
 
 .nav-button{
@@ -128,7 +159,9 @@ body {
   display: flex;         
   justify-content: center; 
   margin: 2rem 0;  
+  
 }
+
 .article-image-title{
   font-size: 22px;
   height: 50px;
@@ -301,23 +334,89 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
   margin-left: 20px;
 }
 
+.hamburger-button {
+  display: none;
+  background: none;
+  position: fixed;
+  cursor: pointer;
+  font-size: 10px;
+  left: 10px;
+  z-index: 100;
+}
+
 @media screen and (max-width: 1200px) {
+
+  #root {
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: rgba(59,62,87,255);
+    min-height: 100vh;
+    position: relative;
+    justify-content:center;
+    margin-left: 250px;
+    box-sizing: border-box;
+    width: calc(100% - 250px);
+    color: white;
+  }
+
+  .navbar-top {
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    padding: 0 20px; 
+    box-sizing: border-box;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
   .navbar {
-    background-color: white;
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    height: 55px;
-    z-index: 10;
+    transform: translateX(-100%);
+  }
+
+  .navbar.open {
+    transform: translateX(0); 
+  }
+
+  .nav-item {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-end;
     width: 100%;
   }
 
-  .nav-logo{
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -60px;
+  }
+
+  .nav-logo-mobile {
+    display: block; 
+  }
+
+  .nav-logo-desktop{
+    display: none;
+  }
+
+  .hamburger-button {
+    display: block; 
     position: fixed;
-    margin-top: 10px;
-    width: 120px;
-    margin-left: -105px;
+    top: 20px; 
+    left: 20px; 
+    z-index: 9999;
+  }
+
+  .nav-logo{
+    display: none;
   }
 
   .deco-left{
