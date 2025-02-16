@@ -30,7 +30,7 @@ function NavBar() {
         </div>
 
         <div className={`nav-links ${isOpen ? 'open' : ''}`}>
-        <button className="hamburger-button" onClick={toggleMenu}>
+          <button className="hamburger-button" onClick={toggleMenu}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
           <Link to="/article" className="nav-item">

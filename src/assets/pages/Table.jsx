@@ -5,10 +5,10 @@ import { Fragment } from "react"
 
 function Table() {
 
-    const [table, setTable] = useState([])
-    const [originalTable, setOriginalTable] = useState([])
+    const [table, setTable] = useState([]) /// Tabel, mida vajadusel muudetakse (nt sorteerimine)
+    const [originalTable, setOriginalTable] = useState([]) ///Algne tabel
     const [sortOrder, setSortOrder] = useState("default")
-    const [sortColumn, setSortColumn] = useState("firstname")
+    const [sortColumn, setSortColumn] = useState(null)
     const [openRowId, setOpenRowId] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 10
@@ -18,7 +18,7 @@ function Table() {
         .then(res => res.json())
         .then(json => {setTable(json.list)
         setOriginalTable(json.list)})
-    }, []);
+    }, [])
 
     /// number tuleb stringiks teisendada, sest substring ja slice töötavad ainult stringidega.
     // parseInt on vajalik siis, kui tehakse arvutusi (lisatakse 1900 või 2000 ülejäänud aastaarv)
@@ -39,12 +39,17 @@ function Table() {
         return new Date(fullYear, month - 1, day)
     }
 
+    // NB! Kuudel tuleb -1 maha arvestada, aga mitte päevadel. 
+
     function formatDate(date) {
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}.${month}.${year}`;
+        const day = date.getDate().toString().padStart(2, '0')
+        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+        const year = date.getFullYear()
+        return `${day}.${month}.${year}`
     }
+
+    // NB! .padStart(2, '0') tagastab kõik kuupäevad kahekohalised, vajadusel lisab ette 0.
+    // -get on Javascriptis kuupäevadega töötamiseks.
 
     const sortData = (column) => {
         let sortedData = [...table]
@@ -55,49 +60,37 @@ function Table() {
                 newSortOrder = "desc"
             } else if ( sortOrder === "desc"){
                 newSortOrder = "default"
-            } else {
-                newSortOrder = "asc"
             }
-        } else {
-            newSortOrder = "asc"
-        }
-            if (newSortOrder === "default") {
-                sortedData = [...originalTable];
+        } if (newSortOrder === "default") {
+                sortedData = [...originalTable]
         }
             // Rometil ei olnud perekonnanime ja seepärast  sortedData.sort((a, b) => a[column].localeCompare(b[column].)) ei toiminud
+            //a[column] ? a[column].toLowerCase() : "" <-- kas a column on määratud, kui ei ole, siis tagastatakse tühi string
         if (column === "firstname" || column === "surname") {
             if (newSortOrder === "asc") {
                 sortedData.sort((a, b) => 
                     (a[column] ? a[column].toLowerCase() : "").localeCompare(b[column] ? b[column].toLowerCase() : "")
-                );
+                )
             } else if (newSortOrder === "desc") {
                 sortedData.sort((a, b) => 
                     (b[column] ? b[column].toLowerCase() : "").localeCompare(a[column] ? a[column].toLowerCase() : "")
-                );
+                )
             }
 
         } else if (column === "sex") {
             if (newSortOrder === "asc") {
-                sortedData.sort((a) => (a.sex === "f" ? -1 : 1))
+                sortedData.sort((a, b) => (a.sex === "f") - (b.sex === "f"))
         } else if (newSortOrder === "desc") {
-                sortedData.sort((a) => (a.sex === "m" ? -1 : 1))
+                sortedData.sort((a, b) => (a.sex === "m") - (b.sex === "m"))
             }
      }
         if (column === "personal_code") {
             if (newSortOrder === "asc") {
-                sortedData.sort((a, b) => {
-                    const aDate = getBirthDate(a.personal_code);
-                    const bDate = getBirthDate(b.personal_code);
-                    return aDate - bDate; 
-                });
+                sortedData.sort((a, b) => getBirthDate(a.personal_code) - getBirthDate(b.personal_code))
             } else if (newSortOrder === "desc") {
-                sortedData.sort((a, b) => {
-                    const aDate = getBirthDate(a.personal_code);
-                    const bDate = getBirthDate(b.personal_code);
-                    return bDate - aDate; 
-                });
-            }
+                sortedData.sort((a, b) => getBirthDate(b.personal_code) - getBirthDate(a.personal_code))
         }
+    }
         setTable(sortedData)
         setSortOrder(newSortOrder)
         setSortColumn(column)
@@ -114,15 +107,22 @@ function Table() {
         return "both-arrows.png"
     }
 
+    // openRowId kontrollib, kas setOpenRowId(id) --> avatakse konkreetse id-ga osa, kui ei siis on setOpenRowId(null) --> ei näidata midagi
     const toggleRow = (id) => {
         setOpenRowId(openRowId === id ? null : id)
     }
 
-    const truncateText = (text) => {
-        const paragraphs = text.split("\n");
-        const visibleText = paragraphs.slice(0, 1).join("\n")
-        return visibleText + (paragraphs.length > 3 ? "..." : "")
+    // "\n" jagab teksti lõikudeks
+    const truncateText = (text) => 
+        text.split("\n")[0] + (text.split("\n").length > 3 ? "..." : "")
+
+    // Regulaaravaldis eemaldab kõik <p> ja </p> sildid
+    // g = globaalne otsingumärgis, muidu toimuks formatBodyText ainult esimese leitud vastuse puhul ja teistes mitte.
+    const formatBodyText = (text) => {
+        return text.replace(/<\/?p>/g, '')
     }
+    // (/(\d{3}) --> haarab esimesed 3 numbrit, (\d+) ---> haarab ülejäänud numbrid
+    const formatPhone = (phone) => phone.replace(/(\d{3})(\d+)/, '$1 $2')
 
     const handlePageChange = (page) => {
         setCurrentPage(page)
@@ -138,14 +138,6 @@ function Table() {
     const startPage = Math.max(1, currentPage - halfVisible)
     const endPage = Math.min(totalPages, startPage + visiblePages - 1)
 
-    const formatBodyText = (text) => {
-        return text.replace(/<\/?p>/g, ''); // Eemaldab kõik <p> ja </p> sildid
-    }
-
-    const formatPhone = (phone) => {
-        if (!phone) return ''
-        return phone.replace(/(\d{3})(\d+)/, '$1 $2')
-      }
       
 
     // const currentTableData = table.slice(

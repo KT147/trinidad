@@ -408,6 +408,7 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
   }
 
   .hamburger-button {
+    color:black;
     display: block; 
     position: fixed;
     top: 20px; 
