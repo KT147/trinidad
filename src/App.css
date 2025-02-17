@@ -5,11 +5,10 @@
   text-align: center;
   background-color: rgba(59,62,87,255);
   min-height: 100vh;
+  height: auto;
   position: relative;
   justify-content: flex-start;
   margin-left: 250px;
-  box-sizing: border-box;
-  width: calc(100% - 250px);
   color: white;
 }
 
@@ -47,7 +46,7 @@ body {
   position: fixed;
   left: 250px;
   top: 180px;
-  z-index: 1;
+  z-index: 0;
 }
 
 .deco-right{
@@ -55,6 +54,7 @@ body {
   position: fixed;
   right: 10px;
   top: 10px;
+  z-index: 0;
 }
 
 .home-head{
@@ -167,22 +167,25 @@ body {
   max-width: 1100px;     
   margin: 0 auto;       
   padding: 1rem;  
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 
 .article-title{
   font-size: 45px;
+  z-index: 10;
 }
 
 .article-intro{
   font-size: 20px;
   font-weight: bold;
   line-height: 25px;
+  z-index: 10;
 }
 
 .article-image{
-  width: 800px;
+  max-width: 800px;
   height: 600px;
   position: relative;
   z-index: 2;
@@ -197,7 +200,6 @@ body {
   width: 1100px;
   height: 600px;
   position: absolute;
-  margin-top: -632px;
   filter: blur(5px);
   object-fit: cover;
   z-index: 1;
@@ -208,8 +210,7 @@ body {
 .image-container{
   display: flex;         
   justify-content: center; 
-  margin: 2rem 0;  
-  
+  margin: 2rem 0; 
 }
 
 .article-image-title{
@@ -230,6 +231,8 @@ body {
   margin-top: -100px;
   font-size: 20px;
   line-height: 25px;
+  z-index: 100;
+  position: relative;
 }
 
 .article-tags{
@@ -239,6 +242,7 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 40px;
+  z-index: 10;
 }
 
 .article-tags div{
@@ -246,6 +250,7 @@ body {
   font-weight: bold;
   padding: 10px 20px;
   border-radius: 2rem;
+  z-index: 10;
 }
 
 .nav-button:hover{
@@ -365,6 +370,9 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
   background-color: white; 
 }
 
+.details-cell {
+  cursor: default;
+}
 
 .details-cell-image {
   width: 230px;
@@ -384,6 +392,36 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
   left: 10px;
   z-index: 100;
 }
+
+/* LoadingScreen.css */
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 @media screen and (max-width: 1200px) {
 
@@ -486,9 +524,11 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
    .sort-image{
     width: 15px;
     position: absolute;
-    top: px;
+    top: 15px;
     margin-left: 10px;
   }
+
+
 }
 
 

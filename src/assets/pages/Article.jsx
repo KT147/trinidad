@@ -9,10 +9,17 @@ function Article() {
         fetch("https://proovitoo.twn.ee/api/list/972d2b8a")
         .then(res=> res.json())
         .then(json=> setArticle(json))
-    }, []);
+    }, [])
 
+    const LoadingScreen = () => {
+        return (
+          <div className="loading-screen">
+            <div className="loader"></div>
+          </div>
+        )
+      }
     if (!article) {
-        return <div>Loading...</div>;
+        return <LoadingScreen />
     }
 
     const formatBodyText = (text) => {
@@ -24,8 +31,8 @@ function Article() {
         <div key={article.id}>
             <h2 className="article-title">{article.title.toUpperCase()}</h2>
             <div className="article-intro" dangerouslySetInnerHTML={{ __html: formatBodyText(article.intro) }} />
-            <div className="image-container"><img className="article-image" src={article.image.medium}/></div>
-            <div className="image-container"><img className="article-image-under" src={article.image.medium}/></div>
+            <div className="image-container"><img className="article-image" src={article.image.medium}/>
+                <img className="article-image-under" src={article.image.medium}/></div>
             <div className="article-image-title">{article.image.title}</div>
             <div className="article-body" dangerouslySetInnerHTML={{ __html: formatBodyText(article.body) }} />
             <div className="article-tags">
