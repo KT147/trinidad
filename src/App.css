@@ -364,6 +364,7 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
   font-size: 18px;
   color: black;
   padding: 10px 20px;
+  position: absolute;
 }
 
 .details-row {
@@ -393,7 +394,6 @@ tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
   z-index: 100;
 }
 
-/* LoadingScreen.css */
 
 .loading-screen {
   position: fixed;

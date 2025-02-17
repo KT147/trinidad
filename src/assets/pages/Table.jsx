@@ -196,7 +196,7 @@ function Table() {
                     <tr className="details-row">
                     <td colSpan="5" className="details-cell">
                         <img className="details-cell-image" src={one.image.small} alt="" />
-                        <div className="opened-text">{truncateText(formatBodyText(one.body))}</div>
+                        <span className="opened-text">{truncateText(formatBodyText(one.body))}</span>
                     </td>
                     </tr>
                 )}
