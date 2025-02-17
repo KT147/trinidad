@@ -10,6 +10,7 @@ function Table() {
     const [sortOrder, setSortOrder] = useState("default")
     const [sortColumn, setSortColumn] = useState(null)
     const [openRowId, setOpenRowId] = useState(null)
+
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 10
 
@@ -19,6 +20,7 @@ function Table() {
         .then(json => {setTable(json.list)
         setOriginalTable(json.list)})
     }, [])
+
 
     /// number tuleb stringiks teisendada, sest substring ja slice töötavad ainult stringidega.
     // parseInt on vajalik siis, kui tehakse arvutusi (lisatakse 1900 või 2000 ülejäänud aastaarv)
@@ -128,15 +130,25 @@ function Table() {
         setCurrentPage(page)
     }
       
+    // arvutab ühe lehekülje viimase indexi (1x10 = 10 /2x10=20 jne)
     const indexOfLastItem = currentPage * itemsPerPage
+    //arvutab ühe lehekülje esimese indexi (10-10= 0 / 10-10= 10jne)
     const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    //lõikab tabelist andmed firstitemi ja lastitemi vahel 
     const currentItems = table.slice(indexOfFirstItem, indexOfLastItem)
 
+    // Nt kui tabelis on 105 nime, siis jagatakse 105/10 = 11 lehte kokku... Math.ceil ümardab ülespoole (nt 22 indexit = 3 lehte)
     const totalPages = Math.ceil(table.length / itemsPerPage)
+    // näidatakse 5 lehekülge korraga
     const visiblePages = Math.min(5, totalPages)
+    // Määrab nähtavate lehekülgede arvu pooleks (2 ühel pool ja 2 teisel pool)... Match.floor ümardab arvu alla (22 = 2 lehte)
     const halfVisible = Math.floor(visiblePages / 2)
+    // määrab lehe vahemiku algpunkti, ei saa olla väiksem kui 1 (nt kui currentPage = 6 ja halfVisible on 2, siis näidatakse eespool 4 ja 5)
     const startPage = Math.max(1, currentPage - halfVisible)
+    // määrab lehe vahemiku lõpp-punkti (nt startpage on 4, siis lõpp oleks 4+5-1=8). totalpage ei saa olla väiksem kui arvutus
     const endPage = Math.min(totalPages, startPage + visiblePages - 1)
+
+
 
       
 
@@ -176,7 +188,7 @@ function Table() {
                 <tr key={one.id} onClick={() => toggleRow(one.id)} className={openRowId === one.id ? "open-row" : ""}>
                     <td className="top-info">{one.firstname}</td>
                     <td className="top-info">{one.surname}</td>
-                    <td className="top-info">{one.sex === "f" ? "Naine" : one.sex === "m" ? "Mees" : one.sex}</td>
+                    <td className="top-info">{one.sex === "f" ? "Naine" : one.sex === "m" ? "Mees" : ""}</td>
                     <td className="top-info">{formatDate(getBirthDate(one.personal_code))}</td>
                     <td className="top-info">{formatPhone(one.phone)}</td>
                 </tr>
@@ -194,13 +206,16 @@ function Table() {
         </table>
         <div className="pagination">
             <button className="table-sort-button" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>{"<"}</button>
+            
+            {/* Array.from loob uue massiivi olemasolevast massiivist */}
             {Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage).map((page) => (
             <button key={page} onClick={() => handlePageChange(page)} className={currentPage === page ? "active" : "non-active"}>
             {page}
              </button>
             ))}
+
             <button className="table-sort-button" onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>{">"}</button>
-            </div>
+        </div>
         {/* <div>
             {pageNumbers.map((page)=> (
                 <button key={page} onClick={() => changePage(page)}>
