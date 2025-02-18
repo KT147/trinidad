@@ -1,0 +1,141 @@
+.table {
+    position: relative;
+    width: 80%;              
+    min-width: 800px;      
+    margin: 20px;             
+    box-sizing: border-box;
+    margin-left: 100px;
+    margin-right: 100px;
+    text-align: left;
+    font-size: 20px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+   
+thead{
+    background-color: #333333 ;
+    color: white;
+    border-bottom: 2px solid white;
+    min-width: 800px;
+}
+   
+thead th{
+    padding-left: 10px;
+}
+   
+.sort-button{
+    background-color: transparent;
+    margin-left: -25px;
+    color: white;
+}
+   
+tbody td {
+    padding: 10px;
+    border-bottom: 2px solid white; 
+    cursor: pointer;
+}
+   
+tbody tr:nth-child(even):not(.details-row):not(.open-row) td {
+    background-color: rgba(244, 244, 244, 0.1);
+}
+   
+.table-sort-button{
+    background: transparent;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 10px 17px; 
+    border-radius: 50%; 
+    margin: 0 10px;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+}
+   
+.table-sort-button:disabled{
+    color: grey;
+}
+  
+.table-sort-button:hover {
+    outline: 1.5px solid white;
+    border-radius: 50%;
+}
+   
+.active {
+    background-color: white;
+    color: rgba(59,62,87,255);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 17px; 
+    border-radius: 50%; 
+    border: 2px solid rgba(59,62,87,255); 
+    margin: 0 10px;
+    box-sizing: border-box;
+}
+   
+.non-active {
+    background: transparent;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 17px; 
+    border-radius: 50%; 
+    margin: 0 10px;
+    box-sizing: border-box;
+}
+   
+.non-active:hover {
+    outline: 1.5px solid white;
+    border-radius: 50%;
+}
+   
+.open-row {
+    background-color: white;
+    color: #333333;
+}
+   
+.opened-text {
+    font-size: 18px;
+    color: black;
+    padding: 10px 20px;
+    position: absolute;
+}
+   
+.details-row {
+    background-color: white; 
+}
+   
+.details-cell {
+    cursor: default;
+}
+   
+.details-cell-image {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    background-color: white;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    .table {
+        position: relative;
+        width: 80%;                
+        min-width: 800px;      
+        margin: 20px;             
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: 100px;
+        text-align: left;
+        font-size: 16px;
+        border-collapse: collapse;
+        table-layout: fixed;
+       }
+    
+       .sort-image{
+        width: 15px;
+        position: absolute;
+        top: 15px;
+        margin-left: 10px;
+      }
+   }

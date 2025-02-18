@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useEffect } from "react"
 import { Fragment } from "react"
+import "./table.css"
 
 
 function Table() {

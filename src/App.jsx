@@ -1,4 +1,5 @@
 import './App.css'
+import "./assets/pages/navbar.css"
 import {Route, Routes} from 'react-router-dom'
 import HomePage from './assets/pages/HomePage'
 import Table from './assets/pages/Table'
@@ -12,8 +13,8 @@ function App() {
     <div>
       
       <div className='deco-pics'>
-      <img className='deco-left' src="/bg-deco-left.svg"/>
-      <img className='deco-right' src="/bg-deco-right.svg"/>
+        <img className='deco-left' src="/bg-deco-left.svg"/>
+        <img className='deco-right' src="/bg-deco-right.svg"/>
       </div>
 
       <NavBar/>

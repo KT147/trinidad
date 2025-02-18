@@ -1,0 +1,13 @@
+.home-head{
+    margin-top: 300px;
+    font-size: 50px;
+    color:#13cc76;
+    font-family: 'MyFont';
+}
+  
+  .home-body{
+    color: white;
+    font-size: 40px;
+    margin-top:-40px;
+    font-family: 'MyFont';
+}

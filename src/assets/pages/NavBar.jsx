@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import "./navbar.css"
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -23,6 +24,7 @@ function NavBar() {
       </div>
 
       <div className={`navbar ${isOpen ? 'open' : ''}`}>
+        
         <div className="nav-header">
           <Link to="/">
             <img className="nav-logo-desktop" src="/logo.svg" alt="Logo" />
@@ -48,6 +50,7 @@ function NavBar() {
             </button>
           </Link>
         </div>
+
       </div>
     </>
   );
