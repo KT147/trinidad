@@ -27,6 +27,7 @@ thead th{
     background-color: transparent;
     margin-left: -25px;
     color: white;
+    font-weight: bold;
 }
    
 tbody td {

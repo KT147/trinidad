@@ -53,7 +53,7 @@ body {
 .deco-right{
   width: 350px;
   position: fixed;
-  right: 10px;
+  right: 0px;
   top: 10px;
   z-index: 0;
 }

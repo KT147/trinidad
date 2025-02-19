@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    z-index: 1;
+    z-index: 300;
 }
   
 .nav-logo-mobile {
@@ -22,6 +22,7 @@
     transform: translate(-50%, -50%);  
     width: 120px;  
     top: 30px;
+   
 }
   
 .hamburger-button {
@@ -31,7 +32,7 @@
     cursor: pointer;
     font-size: 10px;
     left: 10px;
-    z-index: 100;
+    z-index: 10000;
 }
   
 .nav-item {
@@ -57,6 +58,7 @@
   
 .navbar.open {
     transform: translateX(0);
+    z-index: 30000;
 }
   
 .nav-logo-desktop{
@@ -119,6 +121,7 @@
         align-items: center;  
         padding: 0 20px; 
         box-sizing: border-box;
+        
     }
     
     .nav-links {
@@ -129,7 +132,7 @@
         transform: translateX(-100%);
     }
     
-      .navbar.open {
+    .navbar.open {
         transform: translateX(0); 
     }
     
@@ -139,6 +142,7 @@
         flex-direction: column; 
         align-items: flex-end;
         width: 100%;
+        z-index: 100;
     }
     
     .nav-links {
@@ -150,6 +154,7 @@
         flex-direction: column;
         align-items: center;
         margin-top: -60px;
+        z-index: 100;
     }
     
     .nav-logo-mobile {
@@ -166,7 +171,6 @@
         position: fixed;
         top: 20px; 
         left: 20px; 
-        z-index: 9999;
     }
     
     .nav-logo{
