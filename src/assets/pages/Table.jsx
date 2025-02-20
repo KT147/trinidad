@@ -42,7 +42,6 @@ function Table() {
         return new Date(fullYear, month - 1, day)
     }
 
-    // NB! Kuudel tuleb -1 maha arvestada, aga mitte päevadel. 
 
     function formatDate(date) {
         const day = date.getDate().toString().padStart(2, '0')
